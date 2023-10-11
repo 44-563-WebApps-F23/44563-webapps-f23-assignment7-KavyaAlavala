@@ -115,6 +115,35 @@
                 <img src="treasurelocation.png" id="img24" onclick="check(24)" width="100" height="100 alt=treasurelocation">
             </div>
         </div>
+        <script>
+            let ids = [];
+            let checkCount =0;
+            let penalty =0;
+            let treasureLocation =5;
+            let trapLocation =18;
+            let gameOver =false;
+
+            function check(position) {
+            if (gameOver){
+                return;
+            } 
+
+            let idImage = ids[position];
+            let imageElement = document.getElementById(idImage);
+    
+            if (position === treasureLocation) {
+                imageElement.src = "treasure.jpg";
+                gameOver = true;
+                penalty -= 3;
+            } else if (position === trapLocation) {
+                imageElement.src = "trap.jpg";
+                gameOver = true;
+                penalty += 4;
+            } else {
+                imageElement.src = "pirate.jpg";
+            }
+
+        </script>
            
 
         </body>
