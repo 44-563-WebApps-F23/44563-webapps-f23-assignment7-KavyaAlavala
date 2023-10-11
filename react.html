@@ -36,9 +36,11 @@
     }
 
     setTimeout ( function () {
+        
         if (reactTime == undefined) {
             document.getElementById("target").innerHTML = "Too Slow"
         }
+        
         else {
             var endTime = Date.now()
             let elapsedTime = endTime - reactTime
