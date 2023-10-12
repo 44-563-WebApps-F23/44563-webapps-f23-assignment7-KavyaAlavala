@@ -24,7 +24,7 @@
         <div id="penalty" style="color:rgb(67, 159, 129);font-family: 'Times New Roman';">
             Penalty is zero.
         </div>
-        <div style="color:rgb(70, 118, 161);font-family: 'Times New Roman';"  id="click" onclick="help()">
+        <div style="color:rgb(70, 118, 161);font-family: 'Times New Roman'"  id="click" onclick="help()">
             Click for help.
         </div>
         <div id="help" style="color:rgb(143, 107, 176);font-family: 'Times New Roman';">
@@ -118,76 +118,77 @@
         </div>
         <script>
             let ids = [];
-            let checkCount =0;
-            let penalty =0;
-            let treasureLocation =5;
-            let trapLocation =18;
-            let gameOver =false;
-
-            for (let i = 0; i < 25; i++) 
-            {
-            ids.push(`img${i}`);
-           }
-
+            let checkCount = 0;
+            let penalty = 0;
+            let lastCheck = 0;
+            let treasureLocation = 5;
+            let trapLocation = 18;
+            let gameOver = false;
+        
+            for (let i = 0; i < 25; i++) {
+                ids.push(`img${i}`);
+            }
+        
             function check(position) {
-            if (gameOver){
-                return;
-            } 
-
-            let idImage = ids[position];
-            let imageElement = document.getElementById(idImage);
-    
-            if (position === treasureLocation) {
-                imageElement.src = "treasure.png";
-                gameOver = true;
-                penalty -= 3;
-            } else if (position === trapLocation) {
-                imageElement.src = "trap.jpg";
-                gameOver = true;
-                penalty += 4;
-            } else {
-                imageElement.src = "pirate.jpg";
+                if (gameOver){
+                    return;
+                } 
+        
+                let img_id = ids[position];
+                let imageElement = document.getElementById(img_id);
+        
+                if (position === treasureLocation) {
+                    imageElement.src = "treasure.jpg";
+                    gameOver = true;
+                    penalty -= 3;
+                } else if (position === trapLocation) {
+                    imageElement.src = "trap.jpg";
+                    gameOver = true;
+                    penalty += 4;
+                } else {
+                    imageElement.src = "pirate.jpg";
+                    checkCount++;
+                    penalty++;
+                }
+        
+                if(penalty<0)
+                        penalty =0;
+                let locationsElement = document.getElementById("locations");
+                locationsElement.innerHTML="Number of locations checked is "+checkCount;
+                        
+                let penaltyElement = document.getElementById("penalty");
+                penaltyElement.innerHTML= "Penalty is "+penalty;
+                        
+                lastCheck = position;
             }
-
-
-            if(penalty<0)
-                    penalty =0;
-            let locationsElement = document.getElementById("locations");
-            locationsElement.innerHTML="Number of locations checked is "+checkCount;
-                    
-            let penaltyElement = document.getElementById("penalty");
-            penaltyElement.innerHTML= "Penalty is "+penalty;
-                    
-            lastCheck = position;
-        }
+        
+            function help() {
+                let helpText="";
+                let row_Treasure = Math.floor(treasureLocation / 5);
+                let col_Treasure = treasureLocation % 5;
+                let row_LastCheck = Math.floor(lastCheck / 5);
+                let col_LastCheck = lastCheck % 5;
     
-        function help() {
-            let helpText="";
-            let row_Treasure = Math.floor(treasureLocation / 5);
-            let col_Treasure = treasureLocation % 5;
-            let row_LastCheck = Math.floor(lastCheck / 5);
-            let col_LastCheck = lastCheck % 5;
-
-            row_Difference = Math.abs(row_Treasure - row_LastCheck);
-            col_Difference = Math.abs(col_Treasure - col_LastCheck);
-
-
-            if ((row_Difference ==+1 && col_Difference === 0) || (row_Difference === 0 && col_Difference === 1)) {
-                document.getElementById("help").textContent = "Can smell it";
-            } 
-            else if (row_Difference + col_Difference === 2) {
-                document.getElementById("help").textContent = "Close Matie";   
-            } 
-            else {
-                document.getElementById("help").textContent = "Step Faster";
-               
+                row_Difference = Math.abs(row_Treasure - row_LastCheck);
+                col_Difference = Math.abs(col_Treasure - col_LastCheck);
+    
+    
+                if ((row_Difference ==+1 && col_Difference === 0) || (row_Difference === 0 && col_Difference === 1)) {
+                    document.getElementById("help").textContent = "Can smell it";
+                } 
+                else if (row_Difference + col_Difference === 2) {
+                    document.getElementById("help").textContent = "Close Matie";   
+                } 
+                else {
+                    document.getElementById("help").textContent = "Step Faster";
+                   
+                }
+                penalty += 2;
+                document.getElementById("penalty").textContent = `Penalty is ${penalty}.`;
+                // document.getElementById("help").textContent = help;
             }
-            penalty += 2;
-            document.getElementById("penalty").textContent = `Penalty is ${penalty}.`;
-            // document.getElementById("help").textContent = help;
-        }
-        document.getElementById("help").textContent = helpText;
-    
+            document.getElementById("help").textContent = helpText;
+        
         </script>
            
 
