@@ -30,6 +30,7 @@
         <div id="help" style="color:rgb(143, 107, 176);font-family: 'Times New Roman';">
             Help report
         </div>
+        <button id="newGameButton" onclick="newGame()">New Game</button>
         <h5>Gameplay</h5>
         <div class="row">
             <div class="col-sm-2">
@@ -163,7 +164,7 @@
             }
         
             function help() {
-                let helpText="";
+                let helpInfo="";
                 let row_Treasure = Math.floor(treasureLocation / 5);
                 let col_Treasure = treasureLocation % 5;
                 let row_LastCheck = Math.floor(lastCheck / 5);
@@ -185,10 +186,31 @@
                 }
                 penalty += 2;
                 document.getElementById("penalty").textContent = `Penalty is ${penalty}.`;
-                // document.getElementById("help").textContent = help;
             }
-            document.getElementById("help").textContent = helpText;
+            document.getElementById("help").textContent = helpInfo;
         
+    function newGame() {
+    checkCount = 0;
+    penalty = 0;
+    lastCheck = 0;
+    gameOver = false;
+
+    treasureLocation = Math.floor(Math.random() * 25);
+
+    do {
+        trapLocation = Math.floor(Math.random() * 25);
+
+    } while (trapLocation === treasureLocation);
+
+    document.getElementById("locations").innerHTML = "Number of locations checked is : " + checkCount;
+    document.getElementById("penalty").innerHTML = "Penalty is : " + penalty;
+    document.getElementById("help").textContent = "Help report";
+
+    for (var i = 0; i < 25; i++) 
+    {
+        document.getElementById(ids[i]).src = "bear.jpg"
+    }
+}
         </script>
            
 
